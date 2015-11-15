@@ -1,0 +1,16 @@
+<?php
+
+function exif_geolocaiton_node_presave(EntityInterface $node) {
+  $file = file_load($node->field_image->target_id);
+  $image = drupal_realpath($file->uri->value);
+  $exif = exif_read_data($image, 'EXIF');
+  $lat = floatval($exif['GPSLatitude'][0])
+    + floatval($exif['GPSLatitude'][1]) / 60
+    + (floatval($exif['GPSLatitude'][2])/360000);
+  $lng = floatval($exif['GPSLongitude'][0])
+    + floatval($exif['GPSLongitude'][1]) / 60
+    + (floatval($exif['GPSLongitude'][2])/360000);
+
+  $node->field_geolocation->lat = $lat;
+  $node->field_geolocation->lng = $lng;
+}

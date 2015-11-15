@@ -1,0 +1,7 @@
+name: exif_geolocaiton
+dependencies:
+  - geolocation
+description: 'convert exif to geolocaiton.'
+core: 8.x
+package: Drupal ONSEN
+type: module
